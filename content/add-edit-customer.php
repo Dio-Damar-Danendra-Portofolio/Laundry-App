@@ -1,4 +1,6 @@
 <?php 
+    require_once "koneksi.php";
+    
     $customerQuery = mysqli_query($koneksi, "SELECT * FROM customers");
     $rowCustomers = mysqli_fetch_all($customerQuery, MYSQLI_ASSOC);
 

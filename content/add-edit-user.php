@@ -1,4 +1,6 @@
 <?php 
+    require_once "koneksi.php";
+    
     $userQuery = mysqli_query($koneksi, "SELECT * FROM users");
     $rowusers = mysqli_fetch_all($userQuery, MYSQLI_ASSOC);
 

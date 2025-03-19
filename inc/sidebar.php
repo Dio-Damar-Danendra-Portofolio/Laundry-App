@@ -43,18 +43,18 @@
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="forms-elements.html">
+            <a href="?page=trans-order">
               <i class="bi bi-circle"></i><span>Transaksi Data</span>
             </a>
           </li>
           <li>
-            <a href="forms-layouts.html">
+            <a href="?page=sdlks">
               <i class="bi bi-circle"></i><span>Antar-Jemput Cucian</span>
             </a>
           </li>
           <li>
-            <a href="forms-editors.html">
-              <i class="bi bi-circle"></i><span>Form Editors</span>
+            <a href="?page=sdlks">
+              <i class="bi bi-circle"></i><span>Laporan</span>
             </a>
           </li>
           <li>

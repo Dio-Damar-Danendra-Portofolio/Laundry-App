@@ -1,4 +1,5 @@
 <?php 
+    require_once "koneksi.php";
     $levelQuery = mysqli_query($koneksi, "SELECT * FROM levels");
     $rowlevel = mysqli_fetch_all($levelQuery, MYSQLI_ASSOC);
 

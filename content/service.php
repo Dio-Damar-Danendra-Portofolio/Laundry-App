@@ -1,4 +1,6 @@
 <?php 
+    require_once "koneksi.php";
+    
     $serviceQuery = mysqli_query($koneksi, "SELECT * FROM services");
     $rowService = mysqli_fetch_all($serviceQuery, MYSQLI_ASSOC);
 
