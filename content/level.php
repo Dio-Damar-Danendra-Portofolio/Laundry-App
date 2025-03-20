@@ -19,7 +19,7 @@
                 <div class="mb-3 mt-3" align="right">
                     <a href="?page=add-edit-level" class="btn btn-primary">Tambah Tingkat Baru</a>
                 </div>
-                <table class="table table-bordered">
+                <table class="table table-striped table-bordered text-center" id="myTable">
                     <thead>
                         <tr>
                             <th>No</th>

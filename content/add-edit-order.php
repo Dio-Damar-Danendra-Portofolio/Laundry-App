@@ -1,21 +1,14 @@
-<button?php 
+<?php 
     require_once "koneksi.php";
     
-    $orderQuery = mysqli_query($koneksi, "SELECT orders.*, customers.* FROM orders LEFT JOIN customers ON orders.id_customers = customers.id
-    WHERE deleted_at = 0 ORDER BY trans_order.id DESC");
+    $orderQuery = mysqli_query($koneksi, "SELECT orders.*, customers.* FROM orders LEFT JOIN customers ON orders.id_customer = customers.id
+    ORDER BY orders.id DESC");
     $rowOrder = mysqli_fetch_all($orderQuery, MYSQLI_ASSOC);
 
-    if (isset($_POST['simpan'])) {
-        $customer_name = $_POST['customer_name'];
-        $customer_address = $_POST['customer_address'];
-        $customer_phone = $_POST['customer_phone'];
+    $customerQuery = mysqli_query($koneksi, "SELECT * FROM customers");
+    $rowCustomer = mysqli_fetch_all($customerQuery, MYSQLI_ASSOC);
 
-        $insert = mysqli_query($koneksi, "INSERT INTO customers (customer_name, customer_phone, customer_address) 
-        VALUES ('$customer_name', '$customer_phone', '$customer_address')");
-
-        if ($insert) {
-            header("Location:?page=customer&add=success");
-        }
+    if (isset($_POST[''])) {
     }
     
     if (isset($_GET['edit'])) {
@@ -71,8 +64,8 @@
                             <div class="col-sm-8">
                                 <select name="id_customer" id="id_customer" class="form-control">
                                 <option value="">Pilih Pelanggan</option>
-                                <?php foreach ($rowOrder as $order) { ?>
-                                    <option value="<?php echo $order['']?>"></option>
+                                <?php foreach ($rowCustomer as $customer) { ?>
+                                    <option value="<?php echo $customer['id']?>"><?php echo $customer['customer_name']?></option>
                                 <?php } ?>
                                 </select>
                             </div>
@@ -91,7 +84,7 @@
                     <div class="row mt-5">
                         <div class="col-sm-12">
                             <div align="right">
-                                <button type="button" class="btn btn-success btn-sm add-row">Tambah Baris</button>
+                                <button type="button" class="btn btn-success btn-sm add-row" name="tambah_baris">Tambah Baris</button>
                             </div>
                             <table class="table table-bordered table-order">
                                 <thead>

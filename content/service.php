@@ -20,7 +20,7 @@
                 <div class="mb-3 mt-3" align="right">
                     <a href="?page=add-edit-service" class="btn btn-primary">Tambah Layanan Baru</a>
                 </div>
-                <table class="table table-bordered">
+                <table class="table table-striped table-bordered text-center" id="myTable">
                     <thead>
                         <tr>
                             <th>No</th>

@@ -1,8 +1,7 @@
 <?php 
     require_once "koneksi.php";
 
-    $orderQuery = mysqli_query($koneksi, "SELECT orders.*, customers.* FROM orders LEFT JOIN customers ON orders.id_customers = customers.id
-    WHERE deleted_at = 0 ORDER BY trans_order.id DESC");
+    $orderQuery = mysqli_query($koneksi, "SELECT orders.*, customers.* FROM orders LEFT JOIN customers ON customers.id = orders.id_customer ORDER BY orders.id DESC");
     $rowOrder = mysqli_fetch_all($orderQuery, MYSQLI_ASSOC);
 
     if (isset($_GET['delete'])) {
@@ -21,7 +20,7 @@
                 <div class="mb-3 mt-3" align="right">
                     <a href="?page=add-edit-order" class="btn btn-primary">Tambah Transaksi Baru</a>
                 </div>
-                <table class="table table-bordered">
+                <table class="table table-striped table-bordered text-center" id="myTable">
                     <thead>
                         <tr>
                             <th>No</th>
