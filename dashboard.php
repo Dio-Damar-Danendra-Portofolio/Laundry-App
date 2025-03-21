@@ -91,28 +91,63 @@ include "koneksi.php";
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script>
-    $(".add-row").click(function(){
-      height: 300,
+    $('.add-row').click(function(){
+      height: 300;
     });
   </script>
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="crossorigin="anonymous">
 
 </script>
 
-<script src="../assets/vendor/apexcharts/apexcharts.min.js"></script>
-<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../assets/vendor/chart.js/chart.umd.js"></script>
-<script src="../assets/vendor/echarts/echarts.min.js"></script>
-<script src="../assets/vendor/quill/quill.js"></script>
-<script src="../assets/vendor/simple-datatables/simple-datatables.js"></script>
-<script src="../assets/vendor/tinymce/tinymce.min.js"></script>
-<script src="../assets/vendor/php-email-form/validate.js"></script>
+<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/chart.js/chart.umd.js"></script>
+<script src="assets/vendor/echarts/echarts.min.js"></script>
+<script src="assets/vendor/quill/quill.js"></script>
+<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+<script src="assets/vendor/tinymce/tinymce.min.js"></script>
+<script src="assets/vendor/php-email-form/validate.js"></script>
 
 <!-- Template Main JS File -->
-<script src="../assets/js/main.js"></script>
+<script src="assets/js/main.js"></script>
+<p></p>
   <script src="https://cdn.datatables.net/v/bs5/dt-2.2.2/datatables.min.js" integrity="sha384-k90VzuFAoyBG5No1d5yn30abqlaxr9+LfAPp6pjrd7U3T77blpvmsS8GqS70xcnH" crossorigin="anonymous"></script>
+<script src="http://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="assets/js/jquery-3.7.1.min.js"></script>
+
+
   <script>
       let dataTable = new DataTable("#myTable");
+      $('#id_service').change(function() {
+          let id_service = $(this).val();
+          $.ajax({
+            url: "get-service.php?id_service=" + id_service,
+            method: "get",
+            dataType: "json",
+            success: function (jawaban){
+              $('#service_price').val(jawaban.data.service_price);
+            }
+          });
+      });
+      $('.add-row').click(function(){
+        let service_name = $('#id_service').find("option:selected").text();
+        let service_price = $('#service_price').val();
+        let newRow = "";
+        newRow += `<tr>
+        <td> ${service_name} </td>
+        <td> ${service_price.toLocaleString()} </td>
+        <td><input class="form-control" name="notes[]" type="text"></td>
+        <td><button type="button" class="btn btn-danger btn-sm remove">Hapus</button></td>
+        </tr>`;
+
+        $('.table-order tbody').append(newRow);
+
+        $('.remove').click(function (event) {
+          event.preventDefault();
+          $(this).closest('tr').remove();
+        });
+
+      });
   </script>
 </body>
 

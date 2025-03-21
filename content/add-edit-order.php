@@ -8,25 +8,18 @@
     $customerQuery = mysqli_query($koneksi, "SELECT * FROM customers");
     $rowCustomer = mysqli_fetch_all($customerQuery, MYSQLI_ASSOC);
 
-    if (isset($_POST[''])) {
-    }
-    
-    if (isset($_GET['edit'])) {
-        $id = $_GET['edit'];
-        $queryEdit = mysqli_query($koneksi, "SELECT * FROM customers WHERE id = '$id'");
-        $rowEdit = mysqli_fetch_assoc($queryEdit);
-    }
+    $serviceQuery = mysqli_query($koneksi, "SELECT * FROM services");
+    $rowService = mysqli_fetch_all($serviceQuery, MYSQLI_ASSOC);
 
-    if (isset($_POST['edit'])){
-        $id = $_GET['edit'];
-        $customer_name = $_POST['customer_name'];
-        $customer_address = $_POST['customer_address'];
-        $customer_phone = $_POST['customer_phone'];
+    // TR210325
 
-        $update = mysqli_query($koneksi, "UPDATE customers SET customer_name = '$customer_name', customer_phone = '$customer_phone', customer_address = '$customer_address'
-         WHERE id = '$id'");
-        header("Location:?page=customer&update=success");
-    }
+    $queryTrans = mysqli_query($koneksi, "SELECT max(id) as order_id FROM orders;");
+    $rowTrans = mysqli_fetch_assoc($queryTrans);
+    $id_trans = $rowTrans['order_id'];
+    $id_trans++;
+
+    $kode_transaksi = "TR".date("mdy").sprintf("%03s", $id_trans);
+
 ?>
 <div class="row">
     <div class="col-sm-12">
@@ -36,13 +29,14 @@
             </div>
             <div class="card-body mt-3">
                 <form action="" method="post">
-                    <div class="col-sm-6">
+                    <input type="hidden" id="service_price">
+                <div class="col-sm-6">
                         <div class="mb-3 row">
                             <div class="col-sm-2">
                                 <label for="order_code" class="form-label">Kode Pemesanan: </label>
                             </div>
                             <div class="col-sm-5">
-                                <input type="text" name="order_code" id="order_code" class="form-control" readonly>
+                                <input type="text" name="order_code" id="order_code" class="form-control" readonly value="<?php echo $kode_transaksi?>">
                             </div>
                         </div>
                     </div>
@@ -62,7 +56,7 @@
                                 <label for="id_customer" class="form-label">Nama Pelanggan: </label>
                             </div>
                             <div class="col-sm-8">
-                                <select name="id_customer" id="id_customer" class="form-control">
+                                <select name="id_customer" id="id_customer" class="form-select">
                                 <option value="">Pilih Pelanggan</option>
                                 <?php foreach ($rowCustomer as $customer) { ?>
                                     <option value="<?php echo $customer['id']?>"><?php echo $customer['customer_name']?></option>
@@ -81,10 +75,25 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-sm-6">
+                        <div class="mb-3 row">
+                            <div class="col-sm-4">
+                                <label for="" class="form-label">Layanan: </label>
+                            </div>
+                            <div class="col-sm-8">
+                                <select name="" id="id_service" class="form-select">
+                                    <option value="">Pilih Layanan</option>
+                                    <?php foreach ($rowService as $service) { ?>
+                                        <option value="<?php echo $service['id']?>"><?php echo $service['service_name']?></option>
+                                        <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row mt-5">
                         <div class="col-sm-12">
                             <div align="right">
-                                <button type="button" class="btn btn-success btn-sm add-row" name="tambah_baris">Tambah Baris</button>
+                                <button type="button" class="btn btn-success btn-sm add-row">Tambah Baris</button>
                             </div>
                             <table class="table table-bordered table-order">
                                 <thead>
@@ -92,19 +101,17 @@
                                         <th>Layanan</th>
                                         <th>Jumlah (dalam kilogram)</th>
                                         <th>Catatan</th>
-                                        <th></th>
+                                        <th>Tindakan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
+                        
+                    </div>
+                    <div class="row mt-5">
+                         <button type="submit" class="btn btn-primary btn-md">Simpan</button>
                     </div>
                 </form>
             </div>
